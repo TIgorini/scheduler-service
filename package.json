@@ -6,6 +6,7 @@
     "build": "rm -rf ./dist && tsc",
     "start:producer": "node dist/producer",
     "start:consumer": "node dist/consumer",
+    "schedule": "node dist/cli",
     "lint": "eslint . --ext .ts"
   },
   "repository": {
@@ -18,8 +19,10 @@
     "@tsconfig/node14": "^1.0.0",
     "@types/amqplib": "^0.5.17",
     "@types/express": "^4.17.11",
+    "@types/got": "^9.6.11",
     "@types/mongoose": "^5.10.3",
     "@types/node": "^14.14.32",
+    "@types/yargs-parser": "^20.2.0",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
     "eslint": "^7.21.0",
@@ -34,6 +37,8 @@
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.11.19"
+    "got": "^11.8.2",
+    "mongoose": "^5.11.19",
+    "yargs-parser": "^20.2.6"
   }
 }
