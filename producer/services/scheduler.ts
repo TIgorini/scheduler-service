@@ -7,8 +7,7 @@ const scheduleExecutor = (broker: Broker) => async () => {
   if (jobs.length > 0) {
     await JobModel.deleteMany({ _id: { $in: jobs.map(({ _id }) => _id) } }).exec()
 
-    for (const { _id, message } of jobs) {
-      console.log(`Send ${_id} message to consumer`)
+    for (const { message } of jobs) {
       broker.send(message)
     }
   }
@@ -18,7 +17,7 @@ class Scheduler {
   async start () {
     const channel = await rabbitmq.getChannel()
     const broker = new Broker(channel)
-    setInterval(scheduleExecutor(broker), 5000)
+    setInterval(scheduleExecutor(broker), 60000)
   }
 
   async add (time: Date, message: Message): Promise<string> {
