@@ -6,7 +6,7 @@ import {
 } from './handlers'
 
 import rabbitmq from '../producer/config/rabbitmq'
-import { Message } from '../producer/models/job'
+import Message from '../types/message'
 
 const handleMessage = (message: string) => {
   switch (message) {

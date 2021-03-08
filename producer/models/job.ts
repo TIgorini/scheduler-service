@@ -1,10 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose'
-
-export enum Message {
-  Fairies = 'fairies',
-  Gnomes = 'gnomes',
-  Unicorns = 'unicorns'
-}
+import Message from '../../types/message'
 
 export interface Job {
   time: Date,

@@ -1,5 +1,5 @@
 import { Channel } from 'amqplib'
-import { Message } from '../models/job'
+import Message from '../../types/message'
 
 export default class Broker {
   private channel: Channel
