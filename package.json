@@ -7,7 +7,7 @@
     "start:producer": "node dist/producer",
     "start:consumer": "node dist/consumer",
     "schedule": "node dist/cli",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint src/ --ext .ts"
   },
   "repository": {
     "type": "git",

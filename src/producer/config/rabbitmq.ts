@@ -1,5 +1,5 @@
 import amqp, { Connection } from 'amqplib'
-import config from '../config'
+import config from '.'
 
 class RabbitMQ {
   private connection: Promise<Connection>
