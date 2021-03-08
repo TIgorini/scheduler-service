@@ -20,7 +20,7 @@ const exec = async (cliArgs: Arguments) => {
       .json()
     console.log(`Scheduled as ${response.jobId} at ${time}.`)
   } else {
-    console.log('Command format: scheduler <delay> <message>')
+    console.log('Command format: npm run schedule <delay> <message>')
   }
 }
 

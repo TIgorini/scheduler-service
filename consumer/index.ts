@@ -1,4 +1,27 @@
+import {
+  defaultHandler,
+  fairiesHandler,
+  gnomesHandler,
+  unicornsHandler
+} from './handlers'
+
 import rabbitmq from '../producer/config/rabbitmq'
+import { Message } from '../producer/models/job'
+
+const handleMessage = (message: string) => {
+  switch (message) {
+    case Message.Fairies:
+      fairiesHandler()
+      break
+    case Message.Gnomes:
+      gnomesHandler()
+      break
+    case Message.Unicorns:
+      unicornsHandler()
+      break
+    default: defaultHandler()
+  }
+}
 
 class Main {
   private static readonly queue = 'schedule'
@@ -9,7 +32,7 @@ class Main {
     channel.assertQueue(this.queue, { durable: true })
     channel.consume(this.queue, (message) => {
       if (message) {
-        console.log(`Got scheduled message: ${message.content.toString()}`)
+        handleMessage(message.content.toLocaleString())
         channel.ack(message)
       }
     }, { noAck: false })

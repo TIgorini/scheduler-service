@@ -1,4 +1,4 @@
-import JobModel from '../models/job'
+import JobModel, { Message } from '../models/job'
 import Broker from './broker'
 import rabbitmq from '../config/rabbitmq'
 
@@ -21,7 +21,7 @@ class Scheduler {
     setInterval(scheduleExecutor(broker), 5000)
   }
 
-  async add (time: Date, message: string): Promise<string> {
+  async add (time: Date, message: Message): Promise<string> {
     const { id } = await JobModel.create({ time, message })
     return id
   }

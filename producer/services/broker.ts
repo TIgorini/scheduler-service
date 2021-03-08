@@ -1,4 +1,5 @@
 import { Channel } from 'amqplib'
+import { Message } from '../models/job'
 
 export default class Broker {
   private channel: Channel
@@ -8,7 +9,7 @@ export default class Broker {
     this.channel = channel
   }
 
-  send (message: string) {
+  send (message: Message) {
     this.channel.assertQueue(this.queue, { durable: true })
     this.channel.sendToQueue(this.queue, Buffer.from(message), { persistent: true })
   }
