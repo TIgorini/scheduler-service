@@ -1,17 +1,24 @@
 import JobModel from '../models/job'
+import Broker from './broker'
+import rabbitmq from '../config/rabbitmq'
 
-const checker = async () => {
+const scheduleExecutor = (broker: Broker) => async () => {
   const jobs = await JobModel.find({ time: { $lte: new Date() } }).exec()
-  const jobsIds = jobs.map(({ _id }) => _id)
-  if (jobsIds.length > 0) {
-    await JobModel.deleteMany({ _id: { $in: jobsIds } }).exec()
-    console.log('Dispatch messages to consumers: work in progress...')
+  if (jobs.length > 0) {
+    await JobModel.deleteMany({ _id: { $in: jobs.map(({ _id }) => _id) } }).exec()
+
+    for (const { _id, message } of jobs) {
+      console.log(`Send ${_id} message to consumer`)
+      broker.send(message)
+    }
   }
 }
 
 class Scheduler {
-  start () {
-    setInterval(checker, 1000)
+  async start () {
+    const channel = await rabbitmq.getChannel()
+    const broker = new Broker(channel)
+    setInterval(scheduleExecutor(broker), 5000)
   }
 
   async add (time: Date, message: string): Promise<string> {
